@@ -442,6 +442,28 @@ a {
 }
 
 /* =========================================
+   MOBILE RESPONSIVE FIX (Prevent Cut-off)
+   ========================================= */
+
+@media (max-width: 768px) {
+  
+  /* 1. Remove the fixed height restriction so the box can grow/shrink if needed */
+  .product-image {
+    height: auto;           /* Allows natural height */
+    aspect-ratio: 1 / 1;    /* Keeps it a perfect square (optional, or use 4/3) */
+    background-color: transparent; /* Removes gray background if image doesn't fill */
+  }
+
+  /* 2. Force the image to show FULLY, not crop */
+  .product-image img {
+    object-fit: contain;    /* CRITICAL: Ensures 100% of the image is visible */
+    height: 100%;           /* Fills the container */
+    transform: none !important; /* Disables the zoom hover effect on mobile */
+  }
+  
+}
+
+/* =========================================
    BUTTON STYLING
    ========================================= */
 
