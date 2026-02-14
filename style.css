@@ -1,0 +1,720 @@
+/* =========================================
+   1. VARIABLES & RESET
+   ========================================= */
+
+:root {
+  /* Colors */
+  --primary-purple: #a639a6;
+  --dark-text: #333333;
+  --light-text: #ffffff;
+  --gray-bg: #f5f5f5;
+  --brown-overlay: rgba(64, 64, 64, 0.7);
+  --sand-golden: #b9926b;
+  --light-gray: #e6e6e6;
+  --white: #ffffff;
+  --black: #000000;
+
+  /* Fonts */
+  --font-main: "Montserrat", Helvetica, Arial, sans-serif;
+  --font-heading: "Montagu Slab", "Times New Roman", serif;
+  --font-accent: "Alegreya Sans", sans-serif;
+  
+  /* Spacing */
+  --container-width: 1200px;
+  --header-height: 100px;
+  --section-padding: 80px 20px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding-top: var(--header-height);
+  font-family: var(--font-main);
+  color: var(--dark-text);
+  line-height: 1.6;
+  background-color: var(--white);
+}
+
+/* Utility for centering content */
+.container {
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 0 20px;
+  width: 100%;
+}
+
+h1, h2, h3, p {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+
+/* =========================================
+   3. HERO SECTION
+   ========================================= */
+
+.hero-section {
+  position: relative;
+  width: 100%;
+  height: 80vh; /* Responsive height */
+  min-height: 600px;
+  background-image: 
+    linear-gradient(var(--brown-overlay), var(--brown-overlay)),
+    url('Asset/home.jpeg');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  color: var(--white);
+}
+
+.hero-content {
+  max-width: 600px;
+  padding-left: 50px; /* Slight offset like original design */
+}
+
+.hero-subtitle {
+  font-weight: 900;
+  font-size: 14px;
+  letter-spacing: 4px;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  color: var(--white);
+}
+
+.hero-title {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 3.5rem;
+  line-height: 1.1;
+  margin-bottom: 30px;
+}
+
+.hero-description {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  opacity: 0.9;
+}
+
+/* =========================================
+   4. ABOUT SECTION
+   ========================================= */
+
+.about-section {
+  position: relative;        /* Required for positioning background shapes */
+  overflow: hidden;          /* Clips shapes to the section borders */
+  padding: var(--section-padding);
+  background-color: #f9f9f9; /* A clean, very light gray base */
+  z-index: 0;                /* Establishes a stacking context */
+}
+
+/* Graphic Shape 1: Large soft curve in top-right */
+.about-section::before {
+  content: '';
+  position: absolute;
+  top: -150px;
+  right: -100px;
+  width: 600px;
+  height: 600px;
+  background: rgba(220, 220, 220, 0.4); /* Very subtle gray */
+  border-radius: 50%;
+  z-index: -1; /* Places it behind text */
+  pointer-events: none;
+}
+
+/* Graphic Shape 2: Smaller accent curve in bottom-left */
+.about-section::after {
+  content: '';
+  position: absolute;
+  bottom: -100px;
+  left: -50px;
+  width: 400px;
+  height: 400px;
+  background: rgba(230, 230, 230, 0.6); /* Slightly lighter */
+  border-radius: 50%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Ensure content stays above the background */
+.about-section .container {
+  position: relative;
+  z-index: 2;
+}
+
+/* Optional: Clean up the Company Overview spacing */
+.company-overview {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  margin-bottom: 80px;
+  position: relative;
+}
+
+/* Optional: Add a subtle border to the image to match the cards */
+.overview-image {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+  border: 1px solid rgba(0,0,0,0.05);
+}
+
+/* Responsive: Stack the grid on smaller screens */
+@media (max-width: 900px) {
+  .company-overview {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  
+  /* Make shapes smaller on mobile so they don't dominate */
+  .about-section::before {
+    width: 300px;
+    height: 300px;
+  }
+  .about-section::after {
+    width: 200px;
+    height: 200px;
+  }
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 60px;
+  position: relative;
+}
+
+.section-title {
+  font-family: var(--font-heading);
+  font-size: 2.2rem;
+  margin-top: 20px;
+  margin-bottom: 1px;
+  position: relative;
+  z-index: 2;
+}
+
+.section-subtitle {
+  margin-bottom: -40px;
+}
+
+.section-tagline {
+  display: block;
+  font-weight: 700;
+  font-size: 1.2rem;
+  letter-spacing: 8px;
+  color: #958383;
+  margin-top: 20px;
+}
+
+/* Company Overview (Image Left, Text Right) */
+.company-overview {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  align-items: center;
+  margin-bottom: 80px;
+}
+
+.overview-image {
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.overview-text {
+  font-size: 1.2rem;
+  line-height: 1.8;
+}
+
+.overview-text strong {
+  color: var(--primary-purple);
+  font-weight: 700;
+}
+
+/* Feature Grid */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  margin-bottom: 80px;
+}
+
+/* =========================================
+   FEATURE CARDS (VISUAL UPDATE)
+   ========================================= */
+
+.feature-card {
+  position: relative; /* Essential for positioning the background shapes */
+  overflow: hidden;   /* Clips the shapes so they stay inside the rounded corners */
+  
+  /* The Card Base */
+  background-color: #eeeeee; /* Light gray base from the image */
+  border: 1px solid #cccccc; /* Thin, darker gray border */
+  border-radius: 12px;       /* Smooth rounded corners */
+  padding: 30px;
+  
+  /* Layout */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;   /* Left-aligns text and icon */
+  gap: 15px;                 /* Space between elements */
+  
+  /* Interaction */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  z-index: 1;                /* Ensures text sits above the background shapes */
+}
+
+/* Hover Effect */
+.feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  border-color: #b0b0b0;
+}
+
+/* --- THE BACKGROUND GRAPHICS (Pure CSS Shapes) --- */
+
+/* Shape 1: Large overlapping circle for the curve effect */
+.feature-card::before {
+  content: '';
+  position: absolute;
+  top: -20%;
+  right: -20%;
+  width: 250px;
+  height: 250px;
+  background: rgba(255, 255, 255, 0.5); /* Semi-transparent white */
+  border-radius: 50%;
+  z-index: -1; /* Puts it behind the text */
+  pointer-events: none;
+}
+
+/* Shape 2: Smaller overlapping circle for depth */
+.feature-card::after {
+  content: '';
+  position: absolute;
+  bottom: -10%;
+  right: 10%;
+  width: 180px;
+  height: 180px;
+  background: rgba(255, 255, 255, 0.3); /* Lower opacity white */
+  border-radius: 50%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* --- THE CONTENT --- */
+
+/* The "Dot" Icon */
+.feature-icon {
+  width: 22px;
+  height: 22px;
+  background-color: #c59d72; /* The exact golden-brown from your image */
+  border-radius: 50%;        /* Makes it a perfect circle */
+  flex-shrink: 0;            /* Prevents it from squishing */
+  margin-bottom: 5px;
+}
+
+/* The Title */
+.feature-title {
+  font-family: var(--font-main);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #333333; /* Dark, sharp text */
+  margin: 0;
+}
+
+/* The Description */
+.feature-desc {
+  font-family: var(--font-main);
+  font-size: 0.95rem;
+  color: #666666; /* Muted gray for readability */
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Video */
+.video-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.company-video {
+  width: 100%;
+  border-radius: 15px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+}
+
+/* =========================================
+   CATALOG SECTION (REFINED)
+   ========================================= */
+
+.catalog-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px;               /* Consistent consistent professional spacing */
+  margin: 60px auto;       /* Vertical breathing room */
+  max-width: 1200px;
+  width: 100%;
+}
+
+.product-card {
+  /* MATH EXPLANATION: 
+     (100% width - 3 gaps of 40px) / 4 items = 25% - 30px 
+  */
+  flex: 0 0 calc(25% - 30px);
+  min-width: 240px;
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  
+  /* Remove bottom margin here; let the grid gap handle spacing */
+  margin-bottom: 0; 
+  transition: transform 0.3s ease;
+}
+
+.product-image {
+  width: 100%;
+  height: 320px; /* Slightly taller for a more elegant aspect ratio */
+  overflow: hidden;
+  border-radius: 4px; /* Reduced radius for a sharper, more industrial look */
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06); /* Softer, more modern shadow */
+  background-color: #f5f5f5; /* Placeholder color while loading */
+  margin-bottom: 24px; /* Specific space between image and text */
+}
+
+.product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smoother motion */
+}
+
+/* Hover Effect: Gentle lift */
+.product-card:hover {
+  transform: translateY(-5px);
+}
+
+.product-card:hover .product-image img {
+  transform: scale(1.08);
+}
+
+.product-title {
+  font-family: var(--font-main);
+  font-size: 1rem;         /* 1.1rem can be too big; 1rem is standard professional */
+  font-weight: 700;
+  color: var(--black);
+  text-transform: uppercase;
+  letter-spacing: 2px;     /* Increased spacing = Premium look */
+  line-height: 1.4;
+  margin: 0;
+  position: relative;
+  padding-bottom: 5px;     /* Space for the underline animation */
+}
+
+/* Elegant Underline Animation */
+.product-title::after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 1px;             /* Thinner line is more elegant */
+  background: var(--primary-purple);
+  transition: width 0.3s ease;
+  margin: 8px auto 0;      /* Space between text and line */
+}
+
+.product-card:hover .product-title::after {
+  width: 100%;             /* Full width looks cleaner than 40px */
+  max-width: 50px;         /* Cap the width so it doesn't span the whole card */
+}
+
+/* =========================================
+   BUTTON STYLING
+   ========================================= */
+
+.catalog-actions {
+  width: 100%;
+  text-align: center;
+  margin-top: 80px; /* IMPORTANT: Generous space separates grid from button */
+  margin-bottom: 40px;
+}
+
+.btn-primary {
+  display: inline-block; /* Works best with parent text-align: center */
+  background: var(--black);
+  color: var(--white);
+  padding: 18px 50px;    /* Larger padding for a comfortable click area */
+  border-radius: 50px;   /* Fully rounded pill shape */
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.btn-primary:hover {
+  background: #333;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+
+/* =========================================
+   RESPONSIVE
+   ========================================= */
+
+@media (max-width: 1024px) {
+  /* Tablet / Smaller Laptops: 3 per row */
+  .product-card {
+    flex: 0 0 calc(33.333% - 27px); /* Math for 3 items with 40px gap */
+  }
+}
+
+@media (max-width: 768px) {
+  /* Mobile Landscape / Small Tablet: 2 per row */
+  .catalog-grid {
+    gap: 20px; /* Reduce gap on mobile */
+  }
+  
+  .product-card {
+    /* (100% - 20px gap) / 2 */
+    flex: 0 0 calc(50% - 10px); 
+  }
+  
+  .product-image {
+    height: 250px; /* Shorter images on mobile */
+  }
+}
+
+@media (max-width: 480px) {
+  /* Mobile Portrait: 1 per row */
+  .product-card {
+    flex: 0 0 100%;
+    max-width: 350px; /* Prevent it from getting too huge */
+  }
+}
+
+/* =========================================
+   6. CTA / CONTACT SECTION
+   ========================================= */
+
+.cta-section {
+  position: relative;
+  padding: 100px 20px;
+  text-align: center;
+  background-image: url('Asset/Brownbg.png');
+  background-size: cover;
+  background-position: center;
+  color: var(--black); /* Based on original design overlaying white box usually, but here text is on background */
+}
+
+/* If the background is dark, ensure text is readable.
+   Original had a brown bg with black text. Assuming light brown image. */
+
+.cta-container {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+}
+
+.cta-tagline {
+  display: block;
+  font-weight: 800;
+  font-size: 1.2rem;
+  letter-spacing: 6px;
+  margin-bottom: 20px;
+  opacity: 0.7;
+}
+
+.cta-title {
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+}
+
+.cta-description {
+  font-size: 1.1rem;
+  margin-bottom: 40px;
+}
+
+.btn-white {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--white);
+  color: var(--black);
+  padding: 15px 35px;
+  border-radius: 50px;
+  font-weight: 700;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
+}
+
+.btn-white:hover {
+  transform: scale(1.05);
+}
+
+/* Update this class in your CSS */
+.btn-icon {
+  width: 20px;          /* Standard icon size */
+  height: 20px;
+  fill: currentColor;   /* Inherits the text color of the button */
+  flex-shrink: 0;       /* Prevents the icon from getting squished */
+}
+/* Optional: If you want the icon to change color on hover */
+.btn-white:hover .btn-icon {
+  fill: var(--primary-purple); /* Adds a nice pop of color on hover */
+}
+/* =========================================
+   8. RESPONSIVE QUERIES
+   ========================================= */
+
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.5rem;
+  }
+  
+  .company-overview {
+    grid-template-columns: 1fr;
+  }
+  
+  .footer-top {
+    flex-direction: column;
+  }
+
+  .header-container {
+    padding: 0 15px;
+  }
+  
+  .nav-list {
+    display: none; /* Mobile menu would go here */
+  }
+}
+
+/* =========================================
+   CAROUSEL UPDATES
+   ========================================= */
+
+.showcase-section {
+  padding: 60px 20px;
+  background-color: var(--white);
+}
+
+.carousel {
+  position: relative;
+  width: 100%;
+  max-width: 900px; /* Limits width for a centered "middle photo" look */
+  margin: 0 auto;
+}
+
+.carousel-track-container {
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  position: relative;
+}
+
+.carousel-track {
+  display: flex;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  transition: transform 0.5s ease-in-out;
+}
+
+.carousel-slide {
+  min-width: 100%;
+  position: relative; /* Needed for positioning text over image */
+}
+
+.carousel-slide img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* --- Caption Styling (Text changing with image) --- */
+.carousel-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 30px 20px;
+  background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+  color: white;
+  text-align: center;
+}
+
+.carousel-caption h3 {
+  margin: 0 0 5px 0;
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+}
+
+.carousel-caption p {
+  margin: 0;
+  font-size: 1rem;
+  opacity: 0.9;
+}
+
+/* --- Navigation Buttons (Left & Right) --- */
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 10;
+  transition: background 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carousel-btn:hover {
+  background: var(--primary-purple);
+}
+
+.btn-left {
+  left: -70px; /* Moves button outside the image */
+}
+
+.btn-right {
+  right: -70px; /* Moves button outside the image */
+}
+
+/* --- Indicator Text (1 / X) --- */
+.carousel-indicator-text {
+  text-align: center;
+  margin-top: 15px;
+  font-family: var(--font-main);
+  font-weight: 700;
+  color: var(--dark-text);
+  font-size: 1.1rem;
+  letter-spacing: 2px;
+}
+
+/* RESPONSIVE: Move buttons inside image on small screens */
+@media (max-width: 1024px) {
+  .btn-left { left: 10px; }
+  .btn-right { right: 10px; }
+}

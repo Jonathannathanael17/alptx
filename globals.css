@@ -1,0 +1,222 @@
+
+/* =========================================
+   2. HEADER
+   ========================================= */
+
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--header-height);
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.brand-identity {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.header-logo {
+  height: 50px;
+  width: auto;
+}
+
+.brand-name {
+  font-family: var(--font-accent);
+  font-weight: 700;
+  color: var(--primary-purple);
+  font-size: 20px;
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+
+.main-nav .nav-list {
+  display: flex;
+  gap: 30px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-link {
+  font-weight: 500;
+  font-size: 15px;
+  text-transform: uppercase;
+  color: var(--dark-text);
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: var(--primary-purple);
+}
+
+/* =========================================
+   7. FOOTER
+   ========================================= */
+
+.site-footer {
+  position: relative;
+  background-image: url('Asset/graybg.png');
+  background-size: cover;        /* ADD THIS: Stretches image to fill area */
+  background-position: center;   /* ADD THIS: Centers the image */
+  background-repeat: no-repeat;  /* ADD THIS: Prevents the tiling/white line */
+  color: var(--white);
+  padding: 80px 0 20px;
+  overflow: hidden;
+}
+
+.footer-bg-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.1; /* Subtle texture */
+  z-index: 0;
+}
+
+.footer-container {
+  position: relative;
+  z-index: 1;
+}
+
+.footer-top {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 50px;
+  margin-bottom: 60px;
+}
+
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.footer-logo {
+  height: 60px;
+  width: auto;
+}
+
+.footer-company-name {
+  font-family: var(--font-accent);
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--primary-purple);
+}
+
+.footer-contact {
+  max-width: 400px;
+}
+
+.footer-heading {
+  font-size: 1.2rem;
+  margin-bottom: 25px;
+  border-bottom: 2px solid var(--primary-purple);
+  display: inline-block;
+  padding-bottom: 5px;
+}
+
+.contact-list {
+  list-style: none;
+  padding: 0;
+}
+
+.contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  margin-bottom: 20px;
+  font-size: 0.95rem;
+}
+
+.contact-icon {
+  width: 20px;
+  height: 20px;
+  margin-top: 3px;
+  filter: brightness(0) invert(1); /* Makes icons white */
+}
+
+.contact-item address {
+  font-style: normal;
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  opacity: 0.7;
+}
+
+/* =========================================
+   FLOATING CONTACT BUBBLE (STICKER)
+   ========================================= */
+
+.floating-contact-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 60px;
+  height: 60px;
+  background-color: var(--primary-purple); /* Or use #25D366 for WhatsApp Green */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  z-index: 9999; /* Ensures it stays on top of everything */
+  transition: transform 0.3s ease;
+  
+  /* Optional: Makes it look more like a "sticker" with a white border */
+  border: 3px solid #ffffff; 
+}
+
+/* Hover Effect: Scale up slightly */
+.floating-contact-btn:hover {
+  transform: scale(1.1);
+  background-color: #8e2f8e; /* Slightly darker purple on hover */
+}
+
+/* The Icon inside */
+.floating-contact-btn svg {
+  width: 28px;
+  height: 28px;
+  stroke: #ffffff; /* White icon */
+}
+
+/* Optional: Pulse Animation to grab attention */
+@keyframes pulse-border {
+  0% {
+    box-shadow: 0 0 0 0 rgba(166, 57, 166, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 15px rgba(166, 57, 166, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(166, 57, 166, 0);
+  }
+}
+
+.floating-contact-btn {
+  animation: pulse-border 2s infinite;
+}
