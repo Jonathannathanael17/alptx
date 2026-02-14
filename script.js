@@ -1,100 +1,98 @@
 document.addEventListener('DOMContentLoaded', function() {
     
-    // --- SELECT DOM ELEMENTS ---
-    const track = document.querySelector('.carousel-track');
-    const slides = Array.from(track.children);
-    const nextBtn = document.getElementById('nextBtn');
-    const prevBtn = document.getElementById('prevBtn');
-    
-    // Indicator Elements
-    const currentPageSpan = document.getElementById('current-page');
-    const totalPagesSpan = document.getElementById('total-pages');
+    /* =========================================
+       1. MOBILE MENU LOGIC (HAMBURGER)
+       ========================================= */
+    const menuBtn = document.querySelector('.mobile-menu-btn');
+    const navMenu = document.querySelector('.main-nav');
+    const navLinks = document.querySelectorAll('.nav-link');
 
-    // --- SETUP STATE ---
-    let currentIndex = 0;
-    const totalSlides = slides.length;
+    // Only run this if the mobile button actually exists on the page
+    if (menuBtn) {
+        // Toggle menu open/close
+        menuBtn.addEventListener('click', () => {
+            menuBtn.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
 
-    // Set "Total Pages" text immediately (e.g., " / 3")
-    totalPagesSpan.textContent = totalSlides;
-
-    // Get width of one slide to know how far to move
-    // We update this on resize to be responsive
-    let slideWidth = slides[0].getBoundingClientRect().width;
-
-    // Arrange slides side-by-side
-    const setSlidePosition = (slide, index) => {
-        slide.style.left = slideWidth * index + 'px';
-    };
-    slides.forEach(setSlidePosition);
-
-    // --- CORE MOVING FUNCTION ---
-    const moveToSlide = (targetIndex) => {
-        // Handle Infinite Loop (Optional logic)
-        // If going back from 0, go to last. If going forward from last, go to 0.
-        if (targetIndex < 0) {
-            targetIndex = totalSlides - 1;
-        } else if (targetIndex >= totalSlides) {
-            targetIndex = 0;
-        }
-
-        // Move the track
-        track.style.transform = 'translateX(-' + (slideWidth * targetIndex) + 'px)';
-        
-        // Update State
-        currentIndex = targetIndex;
-
-        // Update Text Indicator (Index is 0-based, so +1 for display)
-        currentPageSpan.textContent = currentIndex + 1;
+        // Close menu when a link is clicked
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                menuBtn.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
     }
 
-    // --- BUTTON EVENT LISTENERS ---
+
+    /* =========================================
+       2. CAROUSEL LOGIC
+       ========================================= */
+    const track = document.querySelector('.carousel-track');
     
-    // Click Right (Next)
-    nextBtn.addEventListener('click', () => {
-        moveToSlide(currentIndex + 1);
-    });
+    // Only run carousel code if the carousel exists on this page
+    if (track) {
+        const slides = Array.from(track.children);
+        const nextBtn = document.getElementById('nextBtn');
+        const prevBtn = document.getElementById('prevBtn');
+        const currentPageSpan = document.getElementById('current-page');
+        const totalPagesSpan = document.getElementById('total-pages');
 
-    // Click Left (Prev)
-    prevBtn.addEventListener('click', () => {
-        moveToSlide(currentIndex - 1);
-    });
+        let currentIndex = 0;
+        const totalSlides = slides.length;
 
-    // --- RESPONSIVE RESIZE FIX ---
-    window.addEventListener('resize', () => {
-        // Recalculate slide width
-        slideWidth = slides[0].getBoundingClientRect().width;
-        
-        // Reset positions
+        // Set "Total Pages" text
+        if (totalPagesSpan) totalPagesSpan.textContent = totalSlides;
+
+        // Calculate width
+        let slideWidth = slides[0].getBoundingClientRect().width;
+
+        // Arrange slides side-by-side
+        const setSlidePosition = (slide, index) => {
+            slide.style.left = slideWidth * index + 'px';
+        };
         slides.forEach(setSlidePosition);
-        
-        // Snap to current slide immediately without animation to prevent glitch
-        const originalTransition = track.style.transition;
-        track.style.transition = 'none';
-        track.style.transform = 'translateX(-' + (slideWidth * currentIndex) + 'px)';
-        
-        // Restore animation
-        setTimeout(() => {
-            track.style.transition = originalTransition;
-        }, 50);
-    });
-});
 
+        // Move Slide Function
+        const moveToSlide = (targetIndex) => {
+            if (targetIndex < 0) {
+                targetIndex = totalSlides - 1;
+            } else if (targetIndex >= totalSlides) {
+                targetIndex = 0;
+            }
 
-// --- MOBILE MENU TOGGLE ---
-const menuBtn = document.querySelector('.mobile-menu-btn');
-const navMenu = document.querySelector('.main-nav');
-const navLinks = document.querySelectorAll('.nav-link');
+            track.style.transform = 'translateX(-' + (slideWidth * targetIndex) + 'px)';
+            currentIndex = targetIndex;
+            
+            if (currentPageSpan) currentPageSpan.textContent = currentIndex + 1;
+        }
 
-// Toggle menu open/close
-menuBtn.addEventListener('click', () => {
-    menuBtn.classList.toggle('active');
-    navMenu.classList.toggle('active');
-});
+        // Event Listeners
+        if (nextBtn) {
+            nextBtn.addEventListener('click', () => {
+                moveToSlide(currentIndex + 1);
+            });
+        }
 
-// Close menu when a link is clicked (UX improvement)
-navLinks.forEach(link => {
-    link.addEventListener('click', () => {
-        menuBtn.classList.remove('active');
-        navMenu.classList.remove('active');
-    });
+        if (prevBtn) {
+            prevBtn.addEventListener('click', () => {
+                moveToSlide(currentIndex - 1);
+            });
+        }
+
+        // Responsive Fix
+        window.addEventListener('resize', () => {
+            slideWidth = slides[0].getBoundingClientRect().width;
+            slides.forEach(setSlidePosition);
+            
+            // Snap to current slide without animation
+            const originalTransition = track.style.transition;
+            track.style.transition = 'none';
+            track.style.transform = 'translateX(-' + (slideWidth * currentIndex) + 'px)';
+            
+            setTimeout(() => {
+                track.style.transition = originalTransition;
+            }, 50);
+        });
+    }
 });
