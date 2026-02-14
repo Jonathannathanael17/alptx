@@ -78,3 +78,23 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 50);
     });
 });
+
+
+// --- MOBILE MENU TOGGLE ---
+const menuBtn = document.querySelector('.mobile-menu-btn');
+const navMenu = document.querySelector('.main-nav');
+const navLinks = document.querySelectorAll('.nav-link');
+
+// Toggle menu open/close
+menuBtn.addEventListener('click', () => {
+    menuBtn.classList.toggle('active');
+    navMenu.classList.toggle('active');
+});
+
+// Close menu when a link is clicked (UX improvement)
+navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+        menuBtn.classList.remove('active');
+        navMenu.classList.remove('active');
+    });
+});

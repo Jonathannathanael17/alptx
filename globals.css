@@ -149,12 +149,23 @@
 }
 
 .contact-icon {
-  width: 20px;
-  height: 20px;
-  margin-top: 3px;
-  filter: brightness(0) invert(1); /* Makes icons white */
+  width: 24px;   /* Slightly larger for better visibility */
+  height: 24px;
+  margin-top: 0; /* Aligns better with text */
+  flex-shrink: 0; /* Prevents icon from squishing if text is long */
+  
+  /* Color Control */
+  fill: var(--primary-purple); /* Makes icons Purple to match brand */
+  /* OR use: fill: #ffffff;    if you prefer White icons */
+  
+  transition: transform 0.3s ease;
 }
 
+/* Optional: Hover effect for the whole row */
+.contact-item:hover .contact-icon {
+  transform: scale(1.1);
+  fill: #ffffff; /* Turns white on hover if you chose purple default */
+}
 .contact-item address {
   font-style: normal;
 }
@@ -219,4 +230,97 @@
 
 .floating-contact-btn {
   animation: pulse-border 2s infinite;
+}
+
+/* =========================================
+   MOBILE MENU STYLES
+   ========================================= */
+
+/* 1. Default (Desktop): Hide the hamburger button */
+.mobile-menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  z-index: 1001;
+}
+
+/* Style the 3 bars of the hamburger */
+.bar {
+  display: block;
+  width: 25px;
+  height: 3px;
+  margin: 5px auto;
+  background-color: var(--dark-text);
+  transition: all 0.3s ease-in-out;
+  border-radius: 2px;
+}
+
+/* 2. Mobile View (Max Width 768px) */
+@media (max-width: 768px) {
+  
+  /* Show the hamburger button */
+  .mobile-menu-btn {
+    display: block;
+  }
+
+  /* Adjust Brand Name font size for small screens */
+  .brand-name {
+    font-size: 14px; /* Smaller text to fit */
+    white-space: normal; /* Allow wrapping if needed */
+    line-height: 1.2;
+    max-width: 200px;
+  }
+
+  /* The Navigation Menu Container */
+  .main-nav {
+    position: absolute;
+    top: 100%; /* Push it exactly below the header */
+    left: 0;
+    width: 100%;
+    background-color: #ffffff;
+    border-top: 1px solid rgba(0,0,0,0.05);
+    box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+    
+    /* Animation State: Closed */
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-in-out;
+  }
+
+  /* Animation State: Open (Added via JS) */
+  .main-nav.active {
+    max-height: 400px; /* Large enough to fit all links */
+  }
+
+  /* Stack links vertically */
+  .main-nav .nav-list {
+    flex-direction: column;
+    align-items: center;
+    gap: 0; /* Remove flex gap, use padding instead */
+    padding: 20px 0;
+  }
+
+  .nav-list li {
+    width: 100%;
+    text-align: center;
+  }
+
+  .nav-link {
+    display: block;
+    padding: 15px 0;
+    font-size: 16px;
+  }
+
+  /* --- Hamburger Animation (Optional: Turns into X) --- */
+  .mobile-menu-btn.active .bar:nth-child(2) {
+    opacity: 0;
+  }
+  .mobile-menu-btn.active .bar:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+  .mobile-menu-btn.active .bar:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
 }
