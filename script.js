@@ -82,6 +82,77 @@ document.addEventListener('DOMContentLoaded', function() {
                 track.style.transition = originalTransition;
             }, 50);
         });
+
+        /* =========================================
+           3. LIGHTBOX MODAL (Tap to Zoom)
+           ========================================= */
+        const carouselContainer = track.parentElement.parentElement;
+        const lightbox = document.createElement('div');
+        lightbox.className = 'carousel-lightbox';
+        
+        const closeBtn = document.createElement('button');
+        closeBtn.className = 'carousel-lightbox-close';
+        closeBtn.textContent = '×';
+        closeBtn.setAttribute('aria-label', 'Close');
+        
+        const lightboxImg = document.createElement('img');
+        
+        lightbox.appendChild(closeBtn);
+        lightbox.appendChild(lightboxImg);
+        carouselContainer.appendChild(lightbox);
+
+        // Click image to open lightbox
+        slides.forEach((slide) => {
+            const img = slide.querySelector('img');
+            img.addEventListener('click', () => {
+                lightboxImg.src = img.src;
+                lightbox.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        // Close lightbox
+        closeBtn.addEventListener('click', () => {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        /* =========================================
+           4. SWIPE GESTURE DETECTION
+           ========================================= */
+        let touchStartX = 0;
+        let touchEndX = 0;
+        const minSwipeDistance = 50;
+
+        track.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, false);
+
+        track.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, false);
+
+        function handleSwipe() {
+            const diff = touchStartX - touchEndX;
+            
+            if (Math.abs(diff) > minSwipeDistance) {
+                if (diff > 0) {
+                    // Swiped left → next slide
+                    moveToSlide(currentIndex + 1);
+                } else {
+                    // Swiped right → previous slide
+                    moveToSlide(currentIndex - 1);
+                }
+            }
+        }
     }
 });
 
