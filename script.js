@@ -44,16 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Set "Total Pages" text
         if (totalPagesSpan) totalPagesSpan.textContent = totalSlides;
 
-        // Calculate width
-        let slideWidth = slides[0].getBoundingClientRect().width;
-
-        // Arrange slides side-by-side
-        const setSlidePosition = (slide, index) => {
-            slide.style.left = slideWidth * index + 'px';
-        };
-        slides.forEach(setSlidePosition);
-
-        // Move Slide Function
+        // Move Slide Function (using transform only)
         const moveToSlide = (targetIndex) => {
             if (targetIndex < 0) {
                 targetIndex = totalSlides - 1;
@@ -61,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 targetIndex = 0;
             }
 
-            track.style.transform = 'translateX(-' + (slideWidth * targetIndex) + 'px)';
+            track.style.transform = 'translateX(-' + (100 * targetIndex) + '%)';
             currentIndex = targetIndex;
             
             if (currentPageSpan) currentPageSpan.textContent = currentIndex + 1;
@@ -82,13 +73,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Responsive Fix
         window.addEventListener('resize', () => {
-            slideWidth = slides[0].getBoundingClientRect().width;
-            slides.forEach(setSlidePosition);
-            
             // Snap to current slide without animation
             const originalTransition = track.style.transition;
             track.style.transition = 'none';
-            track.style.transform = 'translateX(-' + (slideWidth * currentIndex) + 'px)';
+            track.style.transform = 'translateX(-' + (100 * currentIndex) + '%)';
             
             setTimeout(() => {
                 track.style.transition = originalTransition;
@@ -96,3 +84,4 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
