@@ -342,19 +342,30 @@ a {
   margin: 0;
 }
 
-/* Video */
+/* =========================================
+   VIDEO SECTION FIX (Agar Tidak Gepeng)
+   ========================================= */
+
 .video-container {
   width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
+  max-width: 900px; /* Batasi lebar maksimal agar tidak terlalu raksasa di layar lebar */
+  margin: 0 auto;   /* Tengahkan video */
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  background-color: #000; /* Warna dasar hitam jika loading */
 }
 
 .company-video {
   width: 100%;
-  border-radius: 15px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+  
+  /* INI KUNCINYA: Memaksa video selalu berbentuk persegi panjang 16:9 */
+  aspect-ratio: 16 / 9; 
+  
+  height: auto; /* Biarkan tinggi menyesuaikan otomatis berdasarkan lebar */
+  display: block;
 }
-
 /* =========================================
    CATALOG SECTION (REFINED)
    ========================================= */
